@@ -1,0 +1,13 @@
+#!/bin/bash
+files="`ls| grep "access"`"
+
+for file in $files
+do
+product="`cat $file | grep -E "/products/" | cut -f1,4 | sort -k1,1 | uniq | cut -f2 | sort | uniq -c | sort -nr | head -1 `"
+set --$product
+echo "$file: $2"
+echo "Last three product page access:"
+cat $file | grep -E "/products/" | tail -3
+
+
+done
